@@ -14,7 +14,7 @@ class TranslationYandex {
     private $key; /* possibly can be set as a constant as well */
 
     /* object constructor built; set $key variable */
-    public function __construct ($key='') {
+    public function __construct ($key='trnsl.1.1.20220202T171040Z.c73730c1db5f436c.49416f63010117766dd7c4985599617a2f9c3a44') {
         $this->key = $key;
     }
 
