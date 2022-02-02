@@ -13,14 +13,14 @@ class TranslationYandex {
     /* variable set to private due to security issues (only set at object instance creation) */
     private $key; /* possibly can be set as a constant as well */
 
-    /* object constructor built; set $key variable (if needed) */
-    public function __construct ($key=NULL) {
+    /* object constructor built; set $key variable */
+    public function __construct ($key='') {
         $this->key = $key;
     }
 
-    /* function set to private, as no aparent need for public use (only used inside the instances functions) */
+    /* function set to private, as no aparent need for public use (only used inside instance method) */
     private function init() {
-        /* parent::init() missused, just deleted */
+        /* parent::init() missused, deleted */
         if ( empty($this->key) ) {
             /* InvalidConfigException misspeled, changed */
             throw new InvalidArgumentException("Field <b> \$key </b> is required."); /* string $key with wrong sintax, use of \$ to convert variable sign to string on output (or only use single quotation) */
@@ -31,8 +31,7 @@ class TranslationYandex {
      * @param $format text format need to translate;
      * @return string
      */
-
-    /* static not needed (therefore, we need a construct method)... if so, the called methods inside this one must be also static */
+    /* static modifier not needed (therefore, we need a construct method)... if so, the called methods inside this one must be also static */
     public function translate_text($format='text') { 
         $this->init(); /* method duplication fixed */
 
@@ -45,8 +44,7 @@ class TranslationYandex {
 
         $formData = http_build_query($values);
 
-        /* start a cURL program to transfer data to an external source? */
-        $curlHandle = curl_init(self::TRANSLATE_YA_URL); /* renamed the object $ch for ease code understanding */
+        $curlHandle = curl_init(self::TRANSLATE_YA_URL); /* renamed object $ch for ease code understanding */
         curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curlHandle, CURLOPT_POSTFIELDS, $formData);
 
@@ -59,13 +57,7 @@ class TranslationYandex {
         return ($data['code']==200) ? $data['text'] : $data;
     }
     //......
+
 }
-
-$translator = new TranslationYandex('asdfqwer12341ewqr254wte');
-
-$text1 = $translator->translate_text();
-$text2 = $translator->translate_text();
-
-
 
 ?>
